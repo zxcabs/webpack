@@ -21,3 +21,11 @@ it("should be able to require.resolve with automatical context", function() {
 	var template = "tmpl";
 	require.resolve("./templates/" + template).should.be.eql(require.resolve("./templates/tmpl"));
 });
+
+it("should be able to use renaming combined with a context", function() {
+	var renamedRequire = require;
+	require = function () {};
+	require("fail");
+	var template = "tmpl";
+	renamedRequire("./templates/" + template).should.be.eql("test template");
+});
